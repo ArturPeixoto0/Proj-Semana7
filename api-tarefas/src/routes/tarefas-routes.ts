@@ -9,7 +9,6 @@ tarefaRoutes.post('/', controller.create);
 tarefaRoutes.get('/', controller.list);
 
 tarefaRoutes.delete('/', controller.delete);
-// ...e assim por diante para PUT, DELETE, etc.
 
 export { tarefaRoutes };
 

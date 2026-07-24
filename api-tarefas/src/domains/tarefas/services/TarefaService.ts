@@ -15,7 +15,7 @@ export class TarefaService {
       throw new Error("Nome da tarefa é obrigatório");
     }
     
-    const novaTarefa: Tarefa = { id: Math.random(), titulo: nome, descricao: descricao, concluida: false };
+    const novaTarefa: Tarefa = { id: Math.random(), title: nome, description: descricao, completed: false };
     ListaDeTarefas.push(novaTarefa);
     
     return novaTarefa;

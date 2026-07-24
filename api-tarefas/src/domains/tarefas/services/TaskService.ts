@@ -1,13 +1,13 @@
-import type { Tarefa } from "../models/Tarefa";
+import type { Task } from "../models/Task";
 
-let ListaDeTarefas: Tarefa[] = []; 
+let ListaDeTarefas: Task[] = []; 
 
 interface ICriarTarefa {
   nome: string;
   descricao: string;
 }
 
-export class TarefaService {
+export class TaskService {
   
   create({ nome, descricao }: ICriarTarefa) {
     
@@ -15,7 +15,7 @@ export class TarefaService {
       throw new Error("Nome da tarefa é obrigatório");
     }
     
-    const novaTarefa: Tarefa = { id: Math.random(), title: nome, description: descricao, completed: false };
+    const novaTarefa: Task = { id: Math.random(), title: nome, description: descricao, completed: false };
     ListaDeTarefas.push(novaTarefa);
     
     return novaTarefa;

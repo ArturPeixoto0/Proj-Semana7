@@ -1,14 +1,14 @@
 import type { Request, Response } from 'express';
-import { TarefaService } from '../services/TarefaService';
+import { TaskService } from '../services/TaskService';
 
-export class TarefaController {
+export class TaskController {
   
   // Um método para gerenciar a rota de CRIAR
   create(req: Request, res: Response) {
     try {
       const { nome, descricao } = req.body;
 
-      const service = new TarefaService();
+      const service = new TaskService();
       const tarefa = service.create({ nome, descricao });
       
       return res.status(201).json(tarefa);
@@ -21,7 +21,7 @@ export class TarefaController {
   }
   
   list(req: Request, res: Response) {
-    const service = new TarefaService();
+    const service = new TaskService();
     const tarefas = service.list();
     return res.status(200).json(tarefas);
   }
@@ -30,7 +30,7 @@ export class TarefaController {
     try {
       const { id } = req.query;
 
-      const service = new TarefaService();
+      const service = new TaskService();
       const tarefas = service.delete(Number(id));
       
       return res.status(200).json(tarefas);

@@ -1,8 +1,8 @@
-export interface Tarefa {
+export interface Task {
   	  id: number;     
   	  title: string;  
 	  description?: string;
   	  completed: boolean; 
 	}
 
-export type CreateTarefaData = Omit<Tarefa, 'id' | 'completed'>;
+export type CreateTaskData = Omit<Task, 'id' | 'completed'>;

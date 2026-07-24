@@ -1,1 +1,1 @@
-export * from './Tarefa'
+export * from './Task'

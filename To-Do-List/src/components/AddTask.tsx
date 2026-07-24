@@ -1,15 +1,13 @@
 
-import { TarefaService } from "../domains/tarefas/services/TarefaService";
+import { createTask } from "../services/taskService";
 import { useState } from "react";
 import axios from "axios";
-
-const controller = new TarefaService;
 
 interface refreshKey {
    refreshKey() : void,
 }
 
-export function AddServiceOrder ( {refreshKey}: refreshKey) {
+export function AddTask ( {refreshKey}: refreshKey) {
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
    
@@ -21,8 +19,12 @@ export function AddServiceOrder ( {refreshKey}: refreshKey) {
         try {
             setCarregando(true);
 
-        await controller.create({nome: titulo, descricao: descricao});
-        //preciso atualizar o ServiceTarefas
+        const NovaTarefa = {
+            title: titulo,
+            description: descricao,
+        }
+
+        await createTask(NovaTarefa)
 
         refreshKey();
 

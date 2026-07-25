@@ -8,7 +8,11 @@ taskRoutes.post('/', controller.create);
 
 taskRoutes.get('/', controller.list);
 
-taskRoutes.delete('/', controller.delete);
+taskRoutes.put('/:id', controller.update)
+
+taskRoutes.get('/:id', controller.specific)
+
+taskRoutes.delete('/:id', controller.delete);
 
 export { taskRoutes };
 

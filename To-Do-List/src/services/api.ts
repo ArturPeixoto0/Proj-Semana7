@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-   baseURL: 'https://task',
+   baseURL: 'http://localhost:3333',
    withCredentials: false,
    headers: {
       //'Authorization': '',

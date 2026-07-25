@@ -22,8 +22,20 @@ export class TaskController {
   
   list(req: Request, res: Response) {
     const service = new TaskService();
-    const tarefas = service.list();
-    return res.status(200).json(tarefas);
+
+    const { completed } = req.query;
+
+      let completedConverted: boolean | undefined = undefined;
+      if (completed === 'true') {
+        completedConverted = true;
+      }
+      if (completed === 'false') {
+        completedConverted = false;
+      }
+
+      const tarefa = service.filter(completedConverted);
+
+    return res.status(200).json(tarefa);
   }
 
   delete(req:Request, res:Response) {

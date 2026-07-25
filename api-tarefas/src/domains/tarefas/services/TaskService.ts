@@ -20,10 +20,6 @@ export class TaskService {
     
     return novaTarefa;
   }
-  
-  list() {
-    return ListaDeTarefas;
-  }
 
   delete(id:number){
     if (!id) {
@@ -64,5 +60,18 @@ export class TaskService {
 
     return TarefaAtualizada;
   }  
+
+  filter (completed?: boolean) {
+    if (completed === undefined) {
+      return ListaDeTarefas;
+    }
+
+    const ListaFiltrada = ListaDeTarefas.filter(c => c.completed === completed);
+    if (!ListaFiltrada) {
+      throw new Error(`Não há nenhuma tarefa que possua tal atributo`);
+    }
+
+    return ListaFiltrada;
+  }
 
 }

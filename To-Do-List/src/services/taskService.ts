@@ -15,3 +15,7 @@ export async function createTask( data: CreateTaskData): Promise<Task> {
 export async function deleteTask(id: number): Promise<void> {
   await api.delete(`/task/${id}`);
 } 
+
+export async function UpdateCompleted(id:number, completed: boolean): Promise<void> {
+  await api.put(`/task/${id}`, { completed: !completed } );
+} 

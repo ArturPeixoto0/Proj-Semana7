@@ -4,7 +4,7 @@ import { TaskService } from '../services/TaskService';
 export class TaskController {
   
   // Um método para gerenciar a rota de CRIAR
-  create(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
       const { title, description } = req.body;
 
@@ -20,7 +20,7 @@ export class TaskController {
     }
   }
   
-  list(req: Request, res: Response) {
+  async list(req: Request, res: Response) {
     const service = new TaskService();
 
     const { completed } = req.query;
@@ -38,7 +38,7 @@ export class TaskController {
     return res.status(200).json(tarefa);
   }
 
-  delete(req:Request, res:Response) {
+  async delete(req:Request, res:Response) {
     try {
       const { id } = req.params;
 
@@ -53,7 +53,7 @@ export class TaskController {
     }
   }
 
-  specific (req: Request, res: Response) {
+  async specific (req: Request, res: Response) {
     try {
       const { id } = req.params;
 
@@ -68,7 +68,7 @@ export class TaskController {
     }
   }
 
-  update (req: Request, res: Response) {
+  async update (req: Request, res: Response) {
     try {
       const { id } = req.params;
       const { title } = req.body;

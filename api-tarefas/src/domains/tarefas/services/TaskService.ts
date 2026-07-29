@@ -1,8 +1,6 @@
 import type { Task } from "../models/Task";
 import { prisma } from "../../../config/prismaClient";
 
-let ListaDeTarefas: Task[] = []; 
-let id: number = 1;
 interface ICriarTarefa {
   title: string;
   description: string;
@@ -22,17 +20,19 @@ export class TaskService {
   }
 
   async delete(id:number){
-    if (!id) {
+    try {
+      await prisma.task.delete({where: {id}});
+    
+      const ListaDeTarefas = await prisma.task.findMany();
+    
+      return ListaDeTarefas;
+    } catch (error) {
       throw new Error(`Não existe uma tarefa com o ID ${id}`);
     }
-
-    ListaDeTarefas = ListaDeTarefas.filter(c => c.id !== id);
-    
-    return ListaDeTarefas;
   }
 
   async specific (id:number) {
-    const TarefaEspecifica = ListaDeTarefas.find(t => t.id === id);
+    const TarefaEspecifica = await prisma.task.findUnique({where: {id}})
     
     if (!TarefaEspecifica){
       throw new Error(`Não existe uma tarefa com o ID ${id}`);
@@ -42,37 +42,37 @@ export class TaskService {
   }
 
   async update (id:number, title?:string, completed?: boolean) {
-    const TarefaAtualizada = ListaDeTarefas.find(t => t.id === id);
-    if (!TarefaAtualizada) {
+    if (title === undefined && completed === undefined) {
+        throw new Error(`adicione ao menos um dos campos (Título ou completo)`);
+      }
+    try {
+      let TarefaAtualizada = await prisma.task.update({where: {id}, data: {}})
+
+      if (title !== undefined) {
+        TarefaAtualizada = await prisma.task.update({where: {id}, data: {title: title}});
+      }
+      if (completed !== undefined) {
+        TarefaAtualizada = await prisma.task.update({where: {id}, data: {completed: completed}});
+      }
+
+      return TarefaAtualizada;
+    } catch (error) {
       throw new Error(`Não existe uma tarefa com o ID ${id}`);
     }
-
-    if (title !== undefined) {
-      TarefaAtualizada.title = title;
-    }
-    if (completed !== undefined) {
-      TarefaAtualizada.completed = completed;
-    }
-    if (title === undefined && completed === undefined) {
-      throw new Error(`adicione ao menos um dos campos (Título ou completo)`);
-    }
-
-    ListaDeTarefas[ListaDeTarefas.findIndex(t => t.id === id)] = TarefaAtualizada;
-
-    return TarefaAtualizada;
   }  
 
   async filter (completed?: boolean) {
     if (completed === undefined) {
-      return ListaDeTarefas;
+      return await prisma.task.findMany();
     }
 
-    const ListaFiltrada = ListaDeTarefas.filter(c => c.completed === completed);
-    if (!ListaFiltrada) {
+    const ListaFiltrada = await prisma.task.findMany({where: {completed: completed}})
+
+    if (ListaFiltrada.length === 0) {
       throw new Error(`Não há nenhuma tarefa que possua tal atributo`);
     }
 
     return ListaFiltrada;
-  }
+    }
 
 }

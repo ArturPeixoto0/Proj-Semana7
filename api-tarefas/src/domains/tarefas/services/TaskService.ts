@@ -1,5 +1,6 @@
 import type { Task } from "../models/Task";
 import { prisma } from "../../../config/prismaClient";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 interface ICriarTarefa {
   title: string;
@@ -27,7 +28,10 @@ export class TaskService {
     
       return ListaDeTarefas;
     } catch (error) {
-      throw new Error(`Não existe uma tarefa com o ID ${id}`);
+      if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
+        throw new Error('Tarefa não encontrada.');
+      }
+      throw error;
     }
   }
 

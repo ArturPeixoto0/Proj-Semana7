@@ -9,18 +9,19 @@ export class TaskController {
       const { title, description } = req.body;
 
       const service = new TaskService();
-      const tarefa = service.create({ title, description });
+      const tarefa = await service.create({ title, description });
       
       return res.status(201).json(tarefa);
       
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(400).json({ erro: error.message });
+        return res.status(404).json({ erro: error.message });
       }
     }
   }
   
   async list(req: Request, res: Response) {
+    try {
     const service = new TaskService();
 
     const { completed } = req.query;
@@ -33,9 +34,14 @@ export class TaskController {
         completedConverted = false;
       }
 
-      const tarefa = service.filter(completedConverted);
+      const tarefa = await service.filter(completedConverted);
 
     return res.status(200).json(tarefa);
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ erro: error.message });
+      }
+    }
   }
 
   async delete(req:Request, res:Response) {
@@ -43,12 +49,12 @@ export class TaskController {
       const { id } = req.params;
 
       const service = new TaskService();
-      const tarefas = service.delete(Number(id));
+      const tarefas = await service.delete(Number(id));
       
       return res.status(200).json(tarefas);
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(400).json({ erro: error.message });
+        return res.status(404).json({ erro: error.message });
       }
     }
   }
@@ -58,7 +64,7 @@ export class TaskController {
       const { id } = req.params;
 
       const service = new TaskService();
-      const tarefa = service.specific(Number(id));
+      const tarefa = await service.specific(Number(id));
       
       return res.status(200).json(tarefa);
     } catch (error) {
@@ -78,7 +84,7 @@ export class TaskController {
       const completedConverted = typeof completed === 'boolean' ? completed: undefined;
 
       const service = new TaskService();
-      const tarefa = service.update(Number(id), titleConverted, completedConverted);
+      const tarefa =  await service.update(Number(id), titleConverted, completedConverted);
       
       return res.status(200).json(tarefa);
     } catch (error) {

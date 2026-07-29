@@ -62,13 +62,13 @@ export function AddTask ( {refreshKey}: refreshKey) {
                     <input type="text" 
                     value={ titulo }
                     onChange ={(e)=> setTitulo(e.target.value)}
-                    placeholder="Título" 
+                    placeholder=" Título" 
                     className="bg-amber-50 border border-black rounded-sm mb-2" />
 
                     <input type="text" 
                     value={ descricao }
                     onChange ={(e)=> setDescricao(e.target.value)}
-                    placeholder="Descrição" 
+                    placeholder=" Descrição" 
                     className="bg-amber-50 border border-black rounded-sm mb-2" />
 
                     <button onClick={handleClick} 

@@ -6,7 +6,7 @@ export function TaskPage () {
     const [refreshKey, setRefreshKey] = useState(0);
 
     return(
-        <div>
+        <div className="bg-green-900">
 
             <AddTask refreshKey={() => setRefreshKey(prev=>prev+1)}/>
             <TaskList refreshKey={refreshKey}/>

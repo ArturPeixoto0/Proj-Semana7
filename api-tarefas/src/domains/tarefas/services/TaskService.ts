@@ -1,4 +1,5 @@
 import type { Task } from "../models/Task";
+import { prisma } from "../../../config/prismaClient";
 
 let ListaDeTarefas: Task[] = []; 
 let id: number = 1;
@@ -9,28 +10,28 @@ interface ICriarTarefa {
 
 export class TaskService {
   
-  create({ title, description }: ICriarTarefa) {
+  async create({ title, description }: ICriarTarefa) {
     
     if (!title) {
       throw new Error("Nome da tarefa é obrigatório");
     }
     
-    const novaTarefa: Task = { id: id++, title: title, description: description, completed: false };
-    ListaDeTarefas.push(novaTarefa);
-    
+    const novaTarefa = await prisma.task.create( { data: {title: title, description: description} })
+
     return novaTarefa;
   }
 
-  delete(id:number){
+  async delete(id:number){
     if (!id) {
       throw new Error(`Não existe uma tarefa com o ID ${id}`);
     }
 
     ListaDeTarefas = ListaDeTarefas.filter(c => c.id !== id);
+    
     return ListaDeTarefas;
   }
 
-  specific (id:number) {
+  async specific (id:number) {
     const TarefaEspecifica = ListaDeTarefas.find(t => t.id === id);
     
     if (!TarefaEspecifica){
@@ -40,7 +41,7 @@ export class TaskService {
     return TarefaEspecifica;
   }
 
-  update (id:number, title?:string, completed?: boolean) {
+  async update (id:number, title?:string, completed?: boolean) {
     const TarefaAtualizada = ListaDeTarefas.find(t => t.id === id);
     if (!TarefaAtualizada) {
       throw new Error(`Não existe uma tarefa com o ID ${id}`);
@@ -61,7 +62,7 @@ export class TaskService {
     return TarefaAtualizada;
   }  
 
-  filter (completed?: boolean) {
+  async filter (completed?: boolean) {
     if (completed === undefined) {
       return ListaDeTarefas;
     }

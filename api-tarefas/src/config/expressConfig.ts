@@ -8,6 +8,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/tasks', taskRoutes);
+app.use('/task', taskRoutes);
 
 export { app };

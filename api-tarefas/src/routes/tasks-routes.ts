@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { TaskController } from '../domains/tarefas/controller/TaskController';
+import { TaskController } from '../domains/tarefas/controller/TaskController.js';
 
 const taskRoutes = Router(); 
 const controller = new TaskController();

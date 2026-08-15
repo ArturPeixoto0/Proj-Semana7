@@ -1,4 +1,4 @@
-import { app } from './config/expressConfig';
+import { app } from './config/expressConfig.js';
 
 const PORTA: number = 3333;
 

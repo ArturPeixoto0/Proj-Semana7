@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
-import { PrismaClient } from '../../generated/prisma/client'
+import { PrismaClient } from '../generated/prisma/client/index.js'
 
 // Passe as opções de conexão diretamente no construtor do adaptador
 const adapter = new PrismaMariaDb({

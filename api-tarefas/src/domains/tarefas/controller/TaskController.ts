@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { TaskService } from '../services/TaskService';
+import { TaskService } from '../services/TaskService.js';
 
 export class TaskController {
   

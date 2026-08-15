@@ -1,5 +1,5 @@
-import type { Task } from "../models/Task";
-import { prisma } from "../../../config/prismaClient";
+import type { Task } from "../models/Task.js";
+import { prisma } from "../../../config/prismaClient.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 interface ICriarTarefa {

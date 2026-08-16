@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite' // <--- Importe isso
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(), // <--- Adicione aqui
+    tailwindcss(), 
   ],
+  resolve: {
+    dedupe: ['react', 'react-dom', 'react-router-dom'],
+  },
 })
